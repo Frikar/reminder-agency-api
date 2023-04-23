@@ -1,0 +1,6 @@
+node_modules/
+dist/
+.gitignore
+.git/
+.idea/
+nginx/reminder.dvlance.com.conf
