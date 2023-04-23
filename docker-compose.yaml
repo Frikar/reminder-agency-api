@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:14.3
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
+    networks:
+      - reminder-network
+  backend:
+    depends_on:
+      - db
+    links:
+      - db
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: dvlance/reminder-backend
+    restart: always
+
+    ports:
+      - "${PORT}:${PORT}"
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      PORT: ${PORT}
+    networks:
+      - reminder-network
+networks:
+  reminder-network:
+    driver: bridge
