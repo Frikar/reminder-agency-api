@@ -8,6 +8,7 @@ import { RemindersModule } from './reminders/reminders.module';
 import { CommonModule } from './common/common.module';
 import { join } from 'path';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { AcmeChallengeController } from './acme-challenge/acme-challenge.controller';
 
 @Module({
   imports: [
@@ -35,7 +36,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
     RemindersModule,
     CommonModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, AcmeChallengeController],
   providers: [AppService],
 })
 export class AppModule {}
