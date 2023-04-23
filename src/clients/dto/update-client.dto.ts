@@ -1,4 +1,4 @@
-import { IsOptional, IsEmail, IsEnum } from 'class-validator';
+import { IsOptional, IsEmail, IsEnum, IsArray } from "class-validator";
 import {
   TipoCliente,
   Status,
@@ -44,8 +44,9 @@ export class UpdateClientDto {
   avatar?: string;
 
   @IsOptional()
-  @IsEnum(TipoDeServicio)
-  tipoServicio?: TipoDeServicio;
+  @IsEnum(TipoDeServicio, { each: true })
+  @IsArray()
+  tipoServicio?: TipoDeServicio[];
 
   @IsOptional()
   @IsEnum(TipoCliente)

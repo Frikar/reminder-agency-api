@@ -96,10 +96,10 @@ export class Client {
   status?: Status;
 
   @Column({
-    type: 'enum',
+    type: 'simple-array',
     enum: TipoDeServicio,
   })
-  tipoServicio: TipoDeServicio;
+  tipoServicio: TipoDeServicio[];
 
   @Column({
     type: 'enum',

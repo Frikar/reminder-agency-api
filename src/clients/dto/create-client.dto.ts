@@ -44,8 +44,8 @@ export class CreateClientDto {
   avatar?: string;
 
   @IsNotEmpty()
-  @IsEnum(TipoDeServicio)
-  tipoServicio?: TipoDeServicio;
+  @IsEnum(TipoDeServicio, { each: true })
+  tipoServicio?: TipoDeServicio[];
 
   @IsOptional()
   @IsEnum(TipoCliente)
