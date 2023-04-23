@@ -50,7 +50,7 @@ services:
     volumes:
       - certbot-etc:/etc/letsencrypt
       - ./nginx/certbot:/var/www/html
-    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot certonly --webroot -w /var/www/html -d reminder.dvlance.com --email diego@dvlance.com --agree-tos --staging --non-interactive --preferred-challenges http-01; certbot renew; sleep 12h & wait $${!}; done;'"
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot certonly --webroot -w /var/www/html -d reminder.dvlance.com --email diego@dvlance.com --agree-tos --non-interactive --preferred-challenges http-01; certbot renew; sleep 12h & wait $${!}; done;'"
     depends_on:
       - nginx
 volumes:
