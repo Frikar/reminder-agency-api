@@ -36,7 +36,7 @@ import { AcmeChallengeController } from './acme-challenge/acme-challenge.control
     RemindersModule,
     CommonModule,
   ],
-  controllers: [AppController, AcmeChallengeController],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}

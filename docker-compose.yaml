@@ -48,10 +48,9 @@ services:
   certbot:
     image: certbot/certbot
     volumes:
-      - backend-public:/app/public
       - ./nginx/certbot:/var/www/html
-      - certbot-etc:/etc/letsencrypt
-    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot certonly --webroot -w /app/public -d reminder.dvlance.com --email diego@dvlance.com --agree-tos --non-interactive --preferred-challenges http-01; certbot renew; sleep 12h & wait $${!}; done;'"
+      - ./nginx/certbot:/var/www/html
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot certonly --webroot -w /var/www/html -d reminder.dvlance.com --email diego@dvlance.com --agree-tos --non-interactive --preferred-challenges http-01; certbot renew; sleep 12h & wait $${!}; done;'"
     depends_on:
       - nginx
 volumes:
