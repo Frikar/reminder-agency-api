@@ -6,10 +6,21 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RemindersModule } from './reminders/reminders.module';
 import { CommonModule } from './common/common.module';
+import { join } from 'path';
+import { ServeStaticModule } from '@nestjs/serve-static';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
+    ServeStaticModule.forRoot(
+      {
+        rootPath: join(__dirname, '..', 'public'),
+      },
+      {
+        rootPath: join(__dirname, '..', 'acme-challenge'),
+        serveRoot: '/.well-known/acme-challenge',
+      },
+    ),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DB_HOST,
