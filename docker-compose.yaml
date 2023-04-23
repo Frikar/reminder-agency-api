@@ -11,8 +11,6 @@ services:
       POSTGRES_DB: ${DB_NAME}
     volumes:
       - ./postgres:/var/lib/postgresql/data
-    networks:
-      - reminder-network
   backend:
     depends_on:
       - db
@@ -33,8 +31,3 @@ services:
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
       PORT: ${PORT}
-    networks:
-      - reminder-network
-networks:
-  reminder-network:
-    driver: bridge
