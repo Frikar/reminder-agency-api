@@ -21,6 +21,8 @@ services:
       dockerfile: Dockerfile
     image: dvlance/reminder-backend
     restart: always
+    volumes:
+      - backend-public:/app/public
 
     ports:
       - "${PORT}:${PORT}"
@@ -45,10 +47,10 @@ services:
       - certbot-etc:/etc/letsencrypt
   certbot:
     image: certbot/certbot
-    command: certonly --webroot --webroot-path=/var/www/html --email diego@dvlance.com --agree-tos --no-eff-email --staging -d reminder.dvlance.com
     volumes:
-      - ./nginx/certbot:/var/www/html
+      - backend-public:/app/public
       - certbot-etc:/etc/letsencrypt
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot certonly --webroot -w /app/public -d reminder.dvlance.com --email diego@dvlance.com --agree-tos --non-interactive --preferred-challenges http-01; certbot renew; sleep 12h & wait $${!}; done;'"
     depends_on:
       - nginx
 volumes:
