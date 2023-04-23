@@ -5,7 +5,6 @@ import { createReadStream } from 'fs';
 
 @Controller('.well-known/acme-challenge')
 export class AcmeChallengeController {
-  @Get(':token')
   @Get(':challenge')
   async serveChallenge(
     @Param('challenge') challenge: string,
