@@ -23,18 +23,17 @@ export class RemindersService {
   ) {}
 
   async create(createReminderDto: CreateReminderDto) {
+    const reminder = new Reminder();
     try {
-      const { clientId, ...recordatorioData } = createReminderDto;
-      const cliente = await this.clientsRepository.findOneBy({ id: clientId });
+      const cliente = await this.clientsRepository.findOne({
+        where: { id: createReminderDto.clientId },
+      });
       if (!cliente) {
         throw new NotFoundException(
           `Cliente con ID ${createReminderDto.clientId} no encontrado`,
         );
       }
-      const reminder = this.remindersRepository.create({
-        ...recordatorioData,
-        cliente,
-      });
+      reminder.cliente = cliente;
       return await this.remindersRepository.save(reminder);
     } catch (error) {
       this.handleDBExceptions(error);
