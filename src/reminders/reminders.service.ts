@@ -148,7 +148,10 @@ export class RemindersService {
       Object.assign(reminder, updateReminderDto);
       await this.remindersRepository.save(reminder);
 
-      return reminder;
+      return this.remindersRepository.findOne({
+        where: { id },
+        relations: ['cliente'],
+      });
     } catch (error) {
       this.handleDBExceptions(error);
     }
