@@ -28,6 +28,11 @@ export class RemindersController {
     return this.remindersService.findAll(paginationDto);
   }
 
+  @Get('featured')
+  findFeatured() {
+    return this.remindersService.findAllFeatured();
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.remindersService.findOne(id);

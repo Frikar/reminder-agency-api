@@ -65,6 +65,20 @@ export class RemindersService {
     return reminders;
   }
 
+  async findAllFeatured() {
+    const reminders = await this.remindersRepository.find({
+      where: { pinned: true },
+      relations: ['cliente'],
+      take: 5,
+    });
+    if (!reminders) {
+      throw new InternalServerErrorException(
+        'No se encontraron recordatorios destacados.',
+      );
+    }
+    return reminders;
+  }
+
   async findOne(id: string) {
     if (!isUUID(id)) {
       throw new BadRequestException('ID no es un UUID válido');
@@ -128,8 +142,6 @@ export class RemindersService {
       this.handleDBExceptions(error);
     }
   }
-
-  async markAsPending(id: string) {}
 
   async update(id: string, updateReminderDto: UpdateReminderDto) {
     try {
